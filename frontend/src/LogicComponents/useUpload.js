@@ -9,7 +9,7 @@ const useUpload = (isUploading, firstRun) => {
                 url: 'http://localhost:8000/api/',
                 data: {
                     "id": 15,
-                    "title": "hahahahahahaah",
+                    "title": "narendra modi",
                     "content": "he is very great guy"
                 }
             }).then(res => {

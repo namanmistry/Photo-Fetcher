@@ -5,6 +5,12 @@ Product Admin CSS Template
 https://templatemo.com/tm-524-product-admin
 
 */
+.navicon:hover{
+  color:orange;
+}
+.navicon{
+  color:white;
+}
 
 html {
   font-size: 16px;
@@ -422,9 +428,7 @@ input[type="checkbox"] {
   height: 24px;
   transition: all 0.1s linear;
 }
-input[type="checkbox"]:checked {
-  /* background: url(../img/check-mark.png) #394e64 center no-repeat; */
-}
+
 input[type="checkbox"]:focus {
   outline: 0 none;
   box-shadow: none;

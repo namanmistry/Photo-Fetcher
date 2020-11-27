@@ -5,13 +5,14 @@ import SystemInfo from '../../components/SystemInfo/SystemInfo'
 import { PopulateFolderData, PopulateFileData } from '../../data/main'
 import { useCallback, useRef, useState } from 'react'
 import '../../components/Box/Spinner.css'
-import { Link } from 'react-router-dom'
+import {  useParams } from 'react-router-dom'
 
 //HomeLayout Is The Main Component For Displaying Home Page As Well As Upload Page
 //It Is The Combination Of The NAvBar,PageInfo,System Info And The Box Component
 
-const HomeLayout = ({ navTitle, pageInfo }) => {
-    
+const Folder = ({ navTitle, pageInfo }) => {
+    const {fname}=useParams()
+    console.log("fname is",fname);
     const [pageNumber, setPageNumber] = useState(1)
     // const { folderData, folderLoading } = PopulateFolderData();
     const { fileData, fileLoading } = PopulateFileData(pageNumber);
@@ -38,17 +39,17 @@ const HomeLayout = ({ navTitle, pageInfo }) => {
                 <div className="" id="home">
                     <NavBar Title={navTitle} />
                     <div className="container">
-                        <PageInfo pageInfo={pageInfo} />
+                        
                         <div className="row tm-content-row">
-                            <SystemInfo />
-                            {fileData.map((name, index) => {
-                                if (fileData.length === index + 1) {
+                          
+                            {/* {folderData.map((name, index) => {
+                                if (folderData.length === index + 1) {
                                     //This Is The Last Element Comming From The API
                                     return (
                                         <div ref={lastElementRef} key={index} className="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col" >
                                             <div className="tm-bg-primary-dark tm-block" >
-                                            <Link to={`/home/${name.name}`} className="tm-block-title">{name.name} and {index}</Link>
-                                                
+                                                <h2 className="tm-block-title">{name.name} and {index}</h2>
+                                              
                                             </div>
                                         </div>
                                     )
@@ -56,7 +57,7 @@ const HomeLayout = ({ navTitle, pageInfo }) => {
                                     //All Other Boxes Except Of The Last One
                                     return <Box {...name}  key={index}/>
                                 }
-                            })}
+                            })} */}
 
                         </div>
                         {//Css Loader
@@ -83,4 +84,4 @@ const HomeLayout = ({ navTitle, pageInfo }) => {
     )
 }
 
-export default HomeLayout;
+export default Folder;

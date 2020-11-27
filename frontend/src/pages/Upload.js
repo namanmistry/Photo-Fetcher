@@ -16,9 +16,9 @@ const Upload=()=>{
     return (
         <>
         <HomeLayout navTitle="Upload Page" pageInfo="On This Page You Can Navigate To Any Folder And Upload Your Photos"/>
-        <button type="button"  style={{width:"100%",position:'fixed',bottom:"0rem"}} className="btn btn-dark"
-         onClick={clickHandler
-         }>Upload Here</button>
+        <input type="file" accept='image/*' style={{width:"100%",position:'fixed',bottom:"0rem"}} className="btn btn-dark"
+        multiple/>
+        <button  onClick={clickHandler} style={{position:'fixed',bottom:'13px',right:'28px'}}>Upload</button>
         </>
     )
 }

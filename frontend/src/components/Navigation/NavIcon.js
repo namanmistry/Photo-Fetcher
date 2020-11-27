@@ -5,15 +5,11 @@ const NavIcon = () => {
     return (
         <>
             <ul className="navbar-nav mx-auto h-100">
-                <li className="nav-item">
-                    <a className="nav-link" href="#">
-                        <Link to="/home" >Home</Link>
-                    </a>
+                <li className="nav-item" >
+                        <Link className="navicon nav-link" to="/home" >Home</Link>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link " href="#">
-                        <Link to="/upload">Upload</Link>
-                    </a>
+                        <Link className="navicon nav-link" to="/upload">Upload</Link>
                 </li>
             </ul>
         </>

@@ -4,7 +4,7 @@ import LoginLayout from '../layouts/loginLayout/LoginLayout'
 const Login=()=>{
     return (
         <>
-        <LoginLayout navTitle="Login Page"/>
+        <LoginLayout/>
         </>
     )
 }
