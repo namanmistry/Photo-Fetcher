@@ -2,7 +2,8 @@
 import React from 'react'
 import ReactApexChart from 'react-apexcharts'
 
-
+//This Component Will Display A Pie Chart Based On The System Info Comming From The Server
+//Remaining To Set
 class ApexChart extends React.Component {
   constructor(props) {
     super(props);
