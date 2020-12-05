@@ -1,9 +1,0 @@
-Goal: Website making
--->frontend
-	-->react JS
-		-->10 hours video
-		-->5 videos of playlist
--->backend
-	-->django python
-	-->each topic practice
--->After thay start making projects 

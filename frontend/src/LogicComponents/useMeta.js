@@ -2,25 +2,28 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 //This File Will Fetch The Meta Data Of The System From The API
 const useMeta = () => {
-    const [data, setData] = useState([])
-    const [metaLoading, setMetaLoading] = useState(true)
+    const [metaData, setMetaData] = useState([])
+    const [loading, setLoading] = useState(true)
     useEffect(() => {
-        setMetaLoading(true)
+        
+
         axios({
             method: 'GET',
-            url: 'http://openlibrary.org/search.json',
-            params: { q: query, page: pageNumber }
+            url: 'http://naman1172-23795.portmap.io:23795/api/systemstorage/',
+            headers: {
+                "Authorization": `Token ${localStorage.getItem('token')}`
+            }
 
         }).then((res) => {
-            setData(prevBooks => {
-                return [...new Set([...prevBooks, ...res.data.docs.map(b => b.title)])]
-            })
-            setMetaLoading(false)
+            
+            setMetaData(res.data);
+            setLoading(false);
         })
+    }, []);
 
-    }, [])
 
-    return { data, metaLoading };
+
+    return { metaData, loading };
 }
 
 export default useMeta;

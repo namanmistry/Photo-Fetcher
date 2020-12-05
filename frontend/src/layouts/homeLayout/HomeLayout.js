@@ -2,19 +2,22 @@ import NavBar from '../../components/Navigation/NavBar'
 import Box from '../../components/Box/Box'
 import PageInfo from '../../components/PageInfo/PageInfo'
 import SystemInfo from '../../components/SystemInfo/SystemInfo'
-import { PopulateFolderData, PopulateFileData } from '../../data/main'
+import { PopulateFileData } from '../../data/main'
+import { Data } from '../../data/meta';
 import { useCallback, useRef, useState } from 'react'
 import '../../components/Box/Spinner.css'
-import { Link } from 'react-router-dom'
 
 //HomeLayout Is The Main Component For Displaying Home Page As Well As Upload Page
 //It Is The Combination Of The NAvBar,PageInfo,System Info And The Box Component
 
-const HomeLayout = ({ navTitle, pageInfo }) => {
-    
-    const [pageNumber, setPageNumber] = useState(1)
-    // const { folderData, folderLoading } = PopulateFolderData();
-    const { fileData, fileLoading } = PopulateFileData(pageNumber);
+const HomeLayout = (props) => {
+
+    const [limit, setLimit] = useState(10)
+    const [offset, setOffset] = useState(0)
+    const { fileData, fileLoading, hasMore } = PopulateFileData(limit, offset);
+    const { chartData, loading } = Data();
+
+   
     //pageNumber Will Set The Page Number That We Want To Fetch From The API
 
     //Section For Seeing The Last Element And Triggering The Action
@@ -23,12 +26,12 @@ const HomeLayout = ({ navTitle, pageInfo }) => {
         if (fileLoading) return
         if (observer.current) observer.current.disconnect()
         observer.current = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting) {
-                setPageNumber(prev => prev + 1)
+            if (entries[0].isIntersecting && hasMore) {
+                setOffset(prev => prev + limit)
             }
         })
         if (element) observer.current.observe(element)
-    },[fileLoading])
+    }, [fileLoading, hasMore])
 
 
 
@@ -36,25 +39,25 @@ const HomeLayout = ({ navTitle, pageInfo }) => {
         <>
             <div id="reportsPage">
                 <div className="" id="home">
-                    <NavBar Title={navTitle} />
+                    <NavBar {...props} Title={props.navTitle} />
                     <div className="container">
-                        <PageInfo pageInfo={pageInfo} />
+                        <PageInfo pageInfo={props.pageInfo} />
                         <div className="row tm-content-row">
-                            <SystemInfo />
-                            {fileData.map((name, index) => {
+                            {!loading && <SystemInfo data={chartData} />}
+                            {fileData.map((obj, index) => {
                                 if (fileData.length === index + 1) {
                                     //This Is The Last Element Comming From The API
                                     return (
                                         <div ref={lastElementRef} key={index} className="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col" >
                                             <div className="tm-bg-primary-dark tm-block" >
-                                            <Link to={`/home/${name.name}`} className="tm-block-title">{name.name} and {index}</Link>
-                                                
+                                                <h2 className="tm-block-title">{obj.title}</h2>
+                                                <img width="300" height="300" src={obj.url} alt="img" />
                                             </div>
                                         </div>
                                     )
                                 } else {
                                     //All Other Boxes Except Of The Last One
-                                    return <Box {...name}  key={index}/>
+                                    return <Box {...obj} key={index} />
                                 }
                             })}
 

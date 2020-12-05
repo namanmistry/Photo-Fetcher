@@ -1,10 +1,10 @@
 import HomeLayout from '../layouts/homeLayout/HomeLayout'
 //Main Home Page
-const Home=()=>{
-   
+const Home = (props) => {
+
     return (
         <>
-        <HomeLayout navTitle="Home Page" pageInfo="This Is The Home Page, Here You Can See All Of Your Photos"/>
+            <HomeLayout {...props} navTitle="Home Page" pageInfo="This Is The Home Page, Here You Can See All Of Your Photos" />
         </>
     )
 }

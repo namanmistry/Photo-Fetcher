@@ -1,24 +1,37 @@
-import HomeLayout from '../layouts/homeLayout/HomeLayout'
-import useUpload from'../LogicComponents/useUpload'
-import {useState,useRef} from 'react'
+import useUpload from '../LogicComponents/useUpload'
+import { useState, useRef } from 'react'
+import NavBar from '../components/Navigation/NavBar'
+
 //Upload Page Similar To Home Page But Having Upload Button Extra
-const Upload=()=>{
+const Upload = () => {
+
     //To Keep Working The Uplod Button By Toggeling isUploading useState
-    const [isuploading,setIsUploading]=useState(false)
+    const [isuploading, setIsUploading] = useState(false)
+    const [file, setFile] = useState('');
+
     //To Check The Initial Render Of The Component To Avoid The First Default Post Request
-    const firstRun=useRef(true)
-    const clickHandler=()=>{
+    const firstRun = useRef(true)
+
+    const clickHandler = () => {
         setIsUploading(!isuploading)
-        firstRun.current=false
+        firstRun.current = false
     }
-    useUpload(isuploading,firstRun)
-    
+
+    const fileChangeHandler = (e) => {
+        if (e.target.files[0]) {
+            setFile(e.target.files[0])
+        }
+    }
+
+    useUpload(isuploading, firstRun, file)
+
     return (
         <>
-        <HomeLayout navTitle="Upload Page" pageInfo="On This Page You Can Navigate To Any Folder And Upload Your Photos"/>
-        <input type="file" accept='image/*' style={{width:"100%",position:'fixed',bottom:"0rem"}} className="btn btn-dark"
-        multiple/>
-        <button  onClick={clickHandler} style={{position:'fixed',bottom:'13px',right:'28px'}}>Upload</button>
+            {/* <HomeLayout navTitle="Upload Page" pageInfo="On This Page You Can Navigate To Any Folder And Upload Your Photos" /> */}
+            <NavBar Title="Upload" />
+            <input type="file" accept='image/*' style={{ width: "100%", position: 'fixed', bottom: "0rem" }} className="btn btn-dark"
+                multiple onChange={fileChangeHandler} />
+            <button onClick={clickHandler} style={{ position: 'fixed', bottom: '13px', right: '28px' }}>Upload</button>
         </>
     )
 }

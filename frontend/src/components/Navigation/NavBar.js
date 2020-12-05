@@ -1,13 +1,31 @@
+import React from 'react';
 import NavIcon from './NavIcon'
+import { withRouter } from 'react-router-dom';
+import auth from '../../auth';
+import * as actions from '../../store/actions/auth'
+import { connect } from 'react-redux';
+
 //Main Navigation Bar For All Of The Layouts
 //Title Attribute Here Will Give Each NavBar On Different Page A New Title
-const NavBar = ({ Title }) => {
-    return (
-        <>
+class NavBar extends React.Component {
+    constructor(props) {
+        super(props)
+        this.handleLogout = this.handleLogout.bind(this);
+    }
+
+    handleLogout() {
+        this.props.logout();
+        auth.logout(() => {
+            this.props.history.push('/');
+        });
+    }
+
+    render() {
+        return (
             <nav className="navbar navbar-expand-xl">
                 <div className="container h-100">
                     <a className="navbar-brand" href="index.html">
-                        <h1 className="tm-site-title mb-0">{Title}</h1>
+                        <h1 className="tm-site-title mb-0">{this.props.Title}</h1>
                     </a>
                     <button className="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,16 +36,23 @@ const NavBar = ({ Title }) => {
                         <NavIcon />
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <a className="nav-link d-block" href="login.html">
-                                    <b>Logout</b>
-                                </a>
+                                <button onClick={this.handleLogout}>
+                                    Logout
+                                </button>
                             </li>
                         </ul>
                     </div>
                 </div>
             </nav>
-        </>
-    )
+        )
+    }
 }
 
-export default NavBar;
+
+const mapDispatchToProps = dispatch => {
+    return {
+        logout: () => dispatch(actions.logout())
+    }
+}
+
+export default withRouter(connect(null, mapDispatchToProps)(NavBar));

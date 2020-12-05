@@ -5,6 +5,33 @@ Product Admin CSS Template
 https://templatemo.com/tm-524-product-admin
 
 */
+.parent {
+  display:flex;
+}
+
+.child {  
+  width: 100px;
+}
+
+.img-wrap {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  margin: 0;
+}
+
+div > img {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-height: 100%;
+  min-width: 100%;
+  transform: translate(-50%, -50%);
+}
+
 .navicon:hover{
   color:orange;
 }
